@@ -1,0 +1,105 @@
+from django.db import connection, IntegrityError, transaction
+import secrets
+
+# Create your models here.
+def create_users_table():
+    """
+        Create the users table
+    """
+    with connection.cursor() as cursor:
+        cursor.execute("""
+            CREATE TABLE IF NOT EXISTS users(
+                id SERIAL PRIMARY KEY,
+                username VARCHAR(50) NOT NULL UNIQUE,
+                name VARCHAR(30) NOT NULL,
+                lastname VARCHAR(30) NOT NULL, 
+                email VARCHAR(100) NOT NULL UNIQUE,
+                pass VARCHAR(20) NOT NULL,
+                position TEXT NOT NULL CHECK(position IN ('Manager', 'Employee')),
+                date_sign TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+            )
+        """)
+
+
+def insert_users(
+    username, name,
+    last_name, email,
+    passw, position):
+    """
+        Function to insert new users to the database.
+    """
+    try:
+        with connection.cursor() as cursor:
+            cursor.execute("""
+                INSERT INTO users (
+                    username,
+                    name,
+                    lastname,
+                    email,
+                    pass,
+                    position
+                ) VALUES (%s, %s, %s, %s, %s, %s)
+            """, [username, name, last_name, email, passw, position])
+        return {'success': True}
+    except IntegrityError as I:
+        return {'success': False}
+
+
+def del_user(user_id):
+    """
+        Function to delete a user of the database, based in
+        the id.
+    """
+    try:
+        with connection.cursor() as cursor:
+            cursor.execute("""
+                DELETE FROM users WHERE id = %s
+            """, [user_id])
+            if cursor.rowcount < 1:
+                return {"success": False, "message": "user does not exist"}
+            
+        return {"success": True, "message": "sucesfully deleted"}
+    
+    except IntegrityError as e:
+        return {"success": False, "error": str(e)}
+
+
+def valid_user(username, passw):
+    """
+        Function to validate if the user exist and create a token
+        for the session.
+    """
+    try:
+        with connection.cursor() as cursor:
+            cursor.execute("""
+                SELECT * FROM users WHERE username = %s AND pass = %s
+            """, [username, passw])
+            row = cursor.fetchone()
+        if row is None:
+            return {"success": False}
+        
+        user_id = row[0]
+        token = secrets.token_hex(32)
+        with connection.cursor() as cursor:
+            cursor.execute("""
+                INSERT INTO token (key, users)
+                VALUES (%s, %s)
+            """, [token, user_id])
+        return {"success": True, "token": token}
+    except IntegrityError as e:
+        return {"success": False, "error": str(e)}
+
+
+def get_id(user):
+    try:
+        with connection.cursor() as cursor:
+            cursor.execute("""
+                SELECT id FROM users WHERE username = %s
+            """, [user])
+            user_id = cursor.fetchone()
+        if not user_id:
+            return {"success": False, "message": "user does not exist"}
+        return {"success": True, "user_id": user_id[0]}
+    except IntegrityError as I:
+        return {"success": False, "error": str(I)}
+
