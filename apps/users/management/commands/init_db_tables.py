@@ -1,5 +1,5 @@
 from django.core.management.base import BaseCommand
-from .init_db import run_all_creations
+from apps.users.init_db import run_all_creations
 
 class Command(BaseCommand):
     help = "Crea todas las tablas necesarias en la base de datos."
