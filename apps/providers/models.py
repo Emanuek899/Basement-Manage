@@ -16,8 +16,8 @@ class Providers(models.Model):
 
 class ProductProviders(models.Model):
     pk = models.CompositePrimaryKey('product_id', 'provider_id')
-    product = models.ForeignKey('Products', models.DO_NOTHING)
-    provider = models.ForeignKey('Providers', models.DO_NOTHING)
+    product = models.ForeignKey('apps.products.Products', models.DO_NOTHING)
+    provider = models.ForeignKey('apps.providers.Providers', models.DO_NOTHING)
 
     class Meta:
         managed = False

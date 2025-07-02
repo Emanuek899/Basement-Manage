@@ -23,7 +23,7 @@ class Categories(models.Model):
 
 class ProductCategories(models.Model):
     pk = models.CompositePrimaryKey('product_id', 'category_id')
-    product = models.ForeignKey('Products', models.DO_NOTHING)
+    product = models.ForeignKey('apps.products.Products', models.DO_NOTHING)
     category = models.ForeignKey(Categories, models.DO_NOTHING)
 
     class Meta:

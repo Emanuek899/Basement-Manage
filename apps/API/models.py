@@ -4,7 +4,7 @@ from django.db import connection, IntegrityError, transaction
 # Create your models here.
 class Token(models.Model):
     key = models.CharField(max_length=64)
-    users = models.ForeignKey('Users', models.DO_NOTHING, db_column='users')
+    users = models.ForeignKey('apps.users.Users', models.DO_NOTHING, db_column='users')
 
     class Meta:
         managed = False
