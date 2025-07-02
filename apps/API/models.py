@@ -2,19 +2,13 @@ from django.db import models
 from django.db import connection, IntegrityError, transaction
 
 # Create your models here.
-def create_token_table():
-    """
-        Create tokens table for validation
-    """
-    with connection.cursor() as cursor:
-        cursor.execute("""
-            CREATE TABLE IF NOT EXISTS token (
-                id SERIAL PRIMARY KEY,
-                key VARCHAR(64) NOT NULL,
-                users INT NOT NULL,
-                FOREIGN KEY (users) REFERENCES users(id)
-            )
-        """)
+class Token(models.Model):
+    key = models.CharField(max_length=64)
+    users = models.ForeignKey('Users', models.DO_NOTHING, db_column='users')
+
+    class Meta:
+        managed = False
+        db_table = 'token'
 
 
 def validate_token(user_id):

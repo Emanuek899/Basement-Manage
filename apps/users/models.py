@@ -2,23 +2,18 @@ from django.db import connection, IntegrityError, transaction
 import secrets
 
 # Create your models here.
-def create_users_table():
-    """
-        Create the users table
-    """
-    with connection.cursor() as cursor:
-        cursor.execute("""
-            CREATE TABLE IF NOT EXISTS users(
-                id SERIAL PRIMARY KEY,
-                username VARCHAR(50) NOT NULL UNIQUE,
-                name VARCHAR(30) NOT NULL,
-                lastname VARCHAR(30) NOT NULL, 
-                email VARCHAR(100) NOT NULL UNIQUE,
-                pass VARCHAR(20) NOT NULL,
-                position TEXT NOT NULL CHECK(position IN ('Manager', 'Employee')),
-                date_sign TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-            )
-        """)
+class Users(models.Model):
+    username = models.CharField(unique=True, max_length=50)
+    name = models.CharField(max_length=30)
+    lastname = models.CharField(max_length=30)
+    email = models.CharField(unique=True, max_length=100)
+    pass_field = models.CharField(db_column='pass', max_length=20)  # Field renamed because it was a Python reserved word.
+    position = models.TextField()
+    date_sign = models.DateTimeField(blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'users'
 
 
 def insert_users(
