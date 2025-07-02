@@ -16,13 +16,13 @@ import os
 
 import sys
 
-sys.path.append(os.path.join(os.path.dirname(__file__), 'apps'))
 
 
 #load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+sys.path.append(str(BASE_DIR / 'apps'))
 
 
 # Quick-start development settings - unsuitable for production
