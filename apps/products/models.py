@@ -10,7 +10,7 @@ class Products(models.Model):
 
     class Meta:
         managed = True
- rue        db_table = 'products'
+        db_table = 'products'
 
 
 class Categories(models.Model):
