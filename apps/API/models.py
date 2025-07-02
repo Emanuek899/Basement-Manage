@@ -7,7 +7,7 @@ class Token(models.Model):
     users = models.ForeignKey('users.Users', models.DO_NOTHING, db_column='users')
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'token'
 
 

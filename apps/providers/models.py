@@ -10,7 +10,7 @@ class Providers(models.Model):
     email = models.CharField(max_length=100)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'providers'
 
 
@@ -20,5 +20,5 @@ class ProductProviders(models.Model):
     provider = models.ForeignKey('providers.Providers', models.DO_NOTHING)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'product_providers'

@@ -9,15 +9,15 @@ class Products(models.Model):
     stock = models.IntegerField()
 
     class Meta:
-        managed = False
-        db_table = 'products'
+        managed =
+ rue        db_table = 'products'
 
 
 class Categories(models.Model):
     name = models.CharField(unique=True, max_length=20)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'categories'
 
 
@@ -27,5 +27,5 @@ class ProductCategories(models.Model):
     category = models.ForeignKey(Categories, models.DO_NOTHING)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'product_categories'
