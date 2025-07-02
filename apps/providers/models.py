@@ -1,4 +1,5 @@
 from django.db import connection, IntegrityError
+from django.db import models
 
 # Create your models here.
 class Providers(models.Model):
