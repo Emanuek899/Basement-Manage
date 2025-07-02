@@ -1,5 +1,5 @@
 from django.apps import AppConfig
-from .models import create_users_table
+
 
 
 class UsersConfig(AppConfig):
