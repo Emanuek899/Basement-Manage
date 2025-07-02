@@ -14,6 +14,11 @@ from pathlib import Path
 #from dotenv import load_dotenv
 import os
 
+import sys
+
+sys.path.append(os.path.join(os.path.dirname(__file__), 'apps'))
+
+
 #load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -33,6 +38,8 @@ ALLOWED_HOSTS = []
 
 
 # Application definition
+
+
 
 INSTALLED_APPS = [
     'django.contrib.admin',
