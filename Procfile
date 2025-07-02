@@ -1,1 +1,1 @@
-web: python manage.py collectstatic --noinput && python init_db_table.py && gunicorn settings.wsgi
+web: python manage.py collectstatic --noinput && python manage.py init_db_tables && gunicorn settings.wsgi

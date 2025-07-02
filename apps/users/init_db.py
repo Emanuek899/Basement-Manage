@@ -109,6 +109,7 @@ def create_token_table():
 
 
 def run_all_creations():
+    print("Creando tablas")
     create_users_table()
     create_providers_table()
     create_products_table()
