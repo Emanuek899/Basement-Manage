@@ -9,7 +9,7 @@ class Products(models.Model):
     stock = models.IntegerField()
 
     class Meta:
-        managed =
+        managed = True
  rue        db_table = 'products'
 
 
