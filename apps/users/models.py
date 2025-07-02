@@ -10,7 +10,7 @@ class Users(models.Model):
     email = models.CharField(unique=True, max_length=100)
     pass_field = models.CharField(db_column='pass', max_length=20)  # Field renamed because it was a Python reserved word.
     position = models.TextField()
-    date_sign = models.DateTimeField(blank=True, null=True)
+    date_sign = models.DateTimeField(blank=True, null=True, auto_now=True)
 
     class Meta:
         managed = True
