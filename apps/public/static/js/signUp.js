@@ -1,6 +1,6 @@
 import {signUpUserApi} from "./services/api.js";
 
-const APP_BASE_URL = "http://127.0.0.1:8000"
+const APP_BASE_URL = "https://web-production-b0fee.up.railway.app"
 
 async function signUpUser(userData){
 	const user = await signUpUserApi(userData);

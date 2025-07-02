@@ -1,6 +1,6 @@
 import {signInUserApi} from "./services/api.js";
 
-const API_BASE_URL = "http://127.0.0.1:8000";
+const API_BASE_URL = "https://web-production-b0fee.up.railway.app";
 
 async function signIn(data){
 	const validation = await signInUserApi(data);
